@@ -117,7 +117,9 @@ app_license = "mit"
 # Document Events
 # ---------------
 # Hook on document methods and events
-
+override_doctype_class = {
+    "Journal Entry": "general_voucher_v2.general_voucher_v2.overrides.journal_entry_overrides.JournalEntryOverrides"
+}
 # doc_events = {
 #	"*": {
 #		"on_update": "method",
