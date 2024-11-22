@@ -4,4 +4,4 @@ this version 2 for general voucher
 
 #### License
 
-mit
+mit# general_voucher_v2
