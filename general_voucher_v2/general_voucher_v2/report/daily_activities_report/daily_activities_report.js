@@ -1,4 +1,4 @@
-frappe.query_reports["Daily Activity Report"] = {
+frappe.query_reports["Daily Activities Report"] = {
 	"filters": [
 		{
 			"fieldname": "from_date",

@@ -12,12 +12,12 @@
  "letter_head": "",
  "modified": "2024-06-06 14:15:24.531999",
  "modified_by": "Administrator",
- "module": "General Voucher",
- "name": "Itemwise Party Ledger Description",
+ "module": "General Voucher V2",
+ "name": "Itemwise Party Ledgers Description",
  "owner": "Administrator",
  "prepared_report": 0,
  "ref_doctype": "GL Entry",
- "report_name": "Itemwise Party Ledger Description",
+ "report_name": "Itemwise Party Ledgers Description",
  "report_type": "Script Report",
  "roles": [
   {

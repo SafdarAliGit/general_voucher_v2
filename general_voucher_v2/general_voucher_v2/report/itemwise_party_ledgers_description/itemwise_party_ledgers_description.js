@@ -4,7 +4,7 @@
 // For license information, please see license.txt
 /* eslint-disable */
 
-frappe.query_reports["Itemwise Party Ledger Description"] = {
+frappe.query_reports["Itemwise Party Ledgers Description"] = {
 	"filters": [
 		{
 			"fieldname":"company",

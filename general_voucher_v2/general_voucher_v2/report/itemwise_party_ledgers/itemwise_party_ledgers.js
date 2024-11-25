@@ -1,6 +1,6 @@
 
 
-frappe.query_reports["Itemwise Party Ledger"] = {
+frappe.query_reports["Itemwise Party Ledgers"] = {
 	"filters": [
 		{
 			"fieldname":"company",

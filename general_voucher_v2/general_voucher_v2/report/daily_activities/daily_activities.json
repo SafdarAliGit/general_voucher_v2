@@ -11,12 +11,12 @@
  "is_standard": "Yes",
  "modified": "2024-05-24 08:16:57.060228",
  "modified_by": "Administrator",
- "module": "General Voucher",
- "name": "Daily Activity",
+ "module": "General Voucher V2",
+ "name": "Daily Activities",
  "owner": "Administrator",
  "prepared_report": 0,
  "ref_doctype": "Sales Invoice",
- "report_name": "Daily Activity",
+ "report_name": "Daily Activities",
  "report_type": "Script Report",
  "roles": [
   {
