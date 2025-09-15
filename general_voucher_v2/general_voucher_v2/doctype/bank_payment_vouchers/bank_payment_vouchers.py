@@ -35,7 +35,9 @@ class BankPaymentVouchers(Document):
                     'user_remark': f"{item.description}, Ref:{item.ref_no}",
                     'debit_in_account_currency': item.amount,
                     'credit_in_account_currency': 0,
-                    'cost_center': cost_center
+                    'cost_center': cost_center,
+                    'custom_operating_unit': item.operating_unit if item.operating_unit else None
+
 
                 })
                 je.append("accounts", {
@@ -43,7 +45,8 @@ class BankPaymentVouchers(Document):
                     'debit_in_account_currency': 0,
                     'user_remark': f"{item.description}, Ref:{item.ref_no}",
                     'credit_in_account_currency': item.amount,
-                    'cost_center': cost_center
+                    'cost_center': cost_center,
+                    'custom_operating_unit': item.operating_unit if item.operating_unit else None
                 })
             je.submit()
             frappe.db.set_value('Bank Payment Vouchers', self.name, 'bpv_status', 1)
