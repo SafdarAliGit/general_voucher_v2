@@ -33,6 +33,7 @@ class BankPaymentVouchers(Document):
                     'party_type': item.party_type,
                     'party': item.party,
                     'user_remark': f"{item.description}, Ref:{item.ref_no}",
+                    'reference_due_date': item.ref_date if item.ref_date else None,
                     'debit_in_account_currency': item.amount,
                     'credit_in_account_currency': 0,
                     'cost_center': cost_center,
@@ -44,6 +45,7 @@ class BankPaymentVouchers(Document):
                     'account': bank_account,
                     'debit_in_account_currency': 0,
                     'user_remark': f"{item.description}, Ref:{item.ref_no}",
+                    'reference_due_date': item.ref_date if item.ref_date else None,
                     'credit_in_account_currency': item.amount,
                     'cost_center': cost_center,
                     'custom_operating_unit': item.operating_unit if item.operating_unit else None
