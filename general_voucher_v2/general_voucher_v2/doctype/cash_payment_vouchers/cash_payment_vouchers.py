@@ -24,25 +24,28 @@ class CashPaymentVouchers(Document):
             je.company = company
             je.bill_no = crv_no
             for item in self.items:
-                je.append("accounts", {
+                operating_unit = getattr(item, 'operating_unit', None)
+                debit_row = {
                     'account': item.account,
                     'party_type': item.party_type,
                     'party': item.party,
                     'user_remark': item.description,
                     'debit_in_account_currency': item.amount,
                     'credit_in_account_currency': 0,
-                    'cost_center': cost_center,
-                    'custom_operating_unit': item.operating_unit if item.operating_unit else None
-
-                })
-                je.append("accounts", {
+                    'cost_center': cost_center
+                }
+                credit_row = {
                     'account': cash_account,
                     'debit_in_account_currency': 0,
                     'user_remark': f"{item.description if item.description else ''},{item.party if item.party else ''}",
                     'credit_in_account_currency': item.amount,
-                    'cost_center': cost_center,
-                    'custom_operating_unit': item.operating_unit if item.operating_unit else None
-                })
+                    'cost_center': cost_center
+                }
+                if operating_unit:
+                    debit_row['custom_operating_unit'] = operating_unit
+                    credit_row['custom_operating_unit'] = operating_unit
+                je.append("accounts", debit_row)
+                je.append("accounts", credit_row)
             je.submit()
             frappe.db.set_value('Cash Payment Vouchers', self.name, 'cpv_status', 1)
         else:

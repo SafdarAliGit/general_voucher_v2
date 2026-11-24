@@ -29,16 +29,16 @@ class BankReceiptVouchers(Document):
             je.cheque_date = cheque_date,
 
             for item in self.items:
-                je.append("accounts", {
+                operating_unit = getattr(item, 'operating_unit', None)
+                first_row = {
                     'account': bank_account,
                     'user_remark': f"{item.description}, Ref:{item.ref_no}",
                     'reference_due_date': item.ref_date if item.ref_date else None,
                     'debit_in_account_currency': item.amount,
                     'credit_in_account_currency': 0,
-                    'cost_center': cost_center,
-                    'custom_operating_unit': item.operating_unit if item.operating_unit else None
-                })
-                je.append("accounts", {
+                    'cost_center': cost_center
+                }
+                second_row = {
                     'account': item.account,
                     'party_type': item.party_type,
                     'party': item.party,
@@ -46,10 +46,13 @@ class BankReceiptVouchers(Document):
                     'reference_due_date': item.ref_date if item.ref_date else None,
                     'debit_in_account_currency': 0,
                     'credit_in_account_currency': item.amount,
-                    'cost_center': cost_center,
-                    'custom_operating_unit': item.operating_unit if item.operating_unit else None
-
-                })
+                    'cost_center': cost_center
+                }
+                if operating_unit:
+                    first_row['custom_operating_unit'] = operating_unit
+                    second_row['custom_operating_unit'] = operating_unit
+                je.append("accounts", first_row)
+                je.append("accounts", second_row)
             je.submit()
             frappe.db.set_value('Bank Receipt Vouchers', self.name, 'brv_status', 1)
         else:

@@ -29,25 +29,28 @@ class CashReceiptVouchers(Document):
             je.name = self.name
 
             for item in self.items:
-                je.append("accounts", {
+                operating_unit = getattr(item, 'operating_unit', None)
+                debit_row = {
                     'account': cash_account,
                     'user_remark': f"{item.description if item.description else ''}, Ref:{item.ref_no}, {item.party if item.party else ''}",
                     'debit_in_account_currency': item.amount,
                     'credit_in_account_currency': 0,
-                    'cost_center': cost_center,
-                    'custom_operating_unit': item.operating_unit if item.operating_unit else None
-                })
-                je.append("accounts", {
+                    'cost_center': cost_center
+                }
+                credit_row = {
                     'account': item.account,
                     'party_type': item.party_type,
                     'party': item.party,
                     'user_remark': f"{item.description}, Ref:{item.ref_no}",
                     'debit_in_account_currency': 0,
                     'credit_in_account_currency': item.amount,
-                    'cost_center': cost_center,
-                    'custom_operating_unit': item.operating_unit if item.operating_unit else None
-
-                })
+                    'cost_center': cost_center
+                }
+                if operating_unit:
+                    debit_row['custom_operating_unit'] = operating_unit
+                    credit_row['custom_operating_unit'] = operating_unit
+                je.append("accounts", debit_row)
+                je.append("accounts", credit_row)
             je.submit()
             frappe.db.set_value('Cash Receipt Vouchers', self.name, 'crv_status', 1)
         else:
